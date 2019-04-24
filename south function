@@ -1,0 +1,23 @@
+int bridge_arrive_south(struct bridge *b)
+{
+ lock_acquire(&b->lock);
+ b->south_waiting++;
+ while ((b->north_crossing > 0) || ((b->north_waiting > 0) && (b->south_consecutive >= 5))) 
+ {
+ b->south_waiting--;
+ b->south_crossing++;
+ b->south_consecutive++;
+ b->north_consecutive = 0;
+ lock_release(&b->lock);
+}
+}
+int bridge_leave_south(struct bridge *b)
+{
+ lock_acquire(&b->lock);
+ b->south_crossing--;
+ if (b->south_crossing == 0)
+ {
+ cond_broadcast(&b->southbound_done, &b->lock);
+ }
+ lock_release(&b->lock);
+}
