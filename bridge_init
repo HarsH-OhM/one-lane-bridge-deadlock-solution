@@ -1,0 +1,9 @@
+void bridge_init(struct bridge *b)
+{
+ b->north_waiting = 0;
+ b->north_crossing = 0;
+ b->north_consecutive = 0;
+ b->south_waiting = 0;
+ b->south_crossing = 0;
+ b->south_consecutive = 0;
+}
