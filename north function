@@ -12,3 +12,15 @@ int bridge_arrive_north(struct bridge *b)
  lock_release(&b->lock);
 }
 }
+
+
+int bridge_leave_north(struct bridge *b)
+{
+ lock_acquire(&b->lock);
+ b->north_crossing--;
+ if (b->north_crossing == 0) 
+ {
+ cond_broadcast(&b->northbound_done, &b->lock);
+ }
+ lock_release(&b->lock);
+}
