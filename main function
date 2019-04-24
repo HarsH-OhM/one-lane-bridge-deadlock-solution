@@ -1,0 +1,9 @@
+int main()
+{
+	void bridge_init(struct bridge *b);
+	int bridge_arrive_north(struct bridge *b);
+	int bridge_leave_north(struct bridge *b);
+	int bridge_arrive_south(struct bridge *b);
+	int bridge_leave_south(struct bridge *b);
+    return 0;
+}
